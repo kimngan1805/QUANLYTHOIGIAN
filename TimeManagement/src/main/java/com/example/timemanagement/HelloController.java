@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
+    @FXML
+    private PasswordField confirm_password;
 
     @FXML
     private Hyperlink lg_createAccount;
@@ -114,20 +116,21 @@ public class HelloController implements Initializable {
    private  Alert alert;
     public void create(){
 
-        if(su_username.getText().isEmpty()||su_password.getText().isEmpty()){
+        if(su_username.getText().isEmpty()||su_password.getText().isEmpty()||confirm_password.getText().isEmpty()){
             alert= new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error message");
             alert.setHeaderText(null);
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
         }else{
-            String create="insert into Login (username, password)"+"values(?,?)";
+            String create="insert into Login (username, password,confirm_password)"+"values(?,?,?)";
             DatabaseConnection connectNow= new DatabaseConnection();
             Connection connect=connectNow.getConnection();
             try{
                 preparedStatement=connect.prepareStatement(create);
                 preparedStatement.setString(1,su_username.getText());
                 preparedStatement.setString(2,su_password.getText());
+                preparedStatement.setString(3,confirm_password.getText());
                 preparedStatement.executeUpdate();
                 alert= new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information message");

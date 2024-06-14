@@ -8,5 +8,7 @@ module com.example.timemanagement {
     requires java.desktop;
 
     opens com.example.timemanagement to javafx.fxml;
+    exports com.example.timemanagement.CONTROLLER;
     exports com.example.timemanagement;
+
 }

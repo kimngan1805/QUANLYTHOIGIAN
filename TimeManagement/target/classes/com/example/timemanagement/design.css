@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .white-form{
     -fx-background-color: #fff;
-    -fx-background-radius: 10px
+    -fx-background-radius: 10px;
 }
 
 .login-btn{

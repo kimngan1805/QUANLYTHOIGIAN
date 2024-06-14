@@ -2,22 +2,20 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.timemanagement.dashboardController">
@@ -28,19 +26,19 @@
                     <top>
                         <AnchorPane prefHeight="50.0" prefWidth="1100.0" BorderPane.alignment="CENTER">
                             <children>
-                                <AnchorPane prefHeight="50.0" prefWidth="1100.0" styleClass="top-form" stylesheets="@timeDesign.css">
+                                <AnchorPane prefHeight="50.0" prefWidth="1202.0" styleClass="top-form" stylesheets="@timeDesign.css">
                                     <children>
-                                        <Label layoutX="880.0" layoutY="15.0" text="Welcom, " textFill="WHITE">
+                                        <Label layoutX="880.0" layoutY="15.0" text="Chào mừng bạn," textFill="WHITE">
                                             <font>
                                                 <Font name="Tahoma" size="16.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="946.0" layoutY="15.0" prefHeight="19.0" prefWidth="140.0" text="Admin" textFill="WHITE">
+                                        <Label layoutX="1004.0" layoutY="14.0" prefHeight="19.0" prefWidth="140.0" text="Admin" textFill="WHITE">
                                             <font>
                                                 <Font name=".VnArial Bold" size="18.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="30.0" prefWidth="170.0" text="HOME" textFill="WHITE">
+                                        <Label alignment="CENTER" layoutX="14.0" layoutY="10.0" prefHeight="30.0" prefWidth="170.0" text="Trang chủ" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="22.0" />
                                             </font>
@@ -53,16 +51,15 @@
                     <left>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="nav-form" stylesheets="@timeDesign.css" BorderPane.alignment="CENTER">
                             <children>
-                                <Button fx:id="home_btn" layoutX="15.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Home" />
-                                <Button fx:id="event_btn" layoutX="15.0" layoutY="111.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Event" />
-                                <Button fx:id="task_btn" layoutX="15.0" layoutY="169.0" mnemonicParsing="false" onAction="#start" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Task" />
-                                <Button fx:id="note_btn" layoutX="15.0" layoutY="227.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Note" />
+                                <Button fx:id="home_btn" layoutX="15.0" layoutY="53.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Trang chủ" />
+                                <Button fx:id="event_btn" layoutX="15.0" layoutY="111.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Sự kiện" />
+                                <Button fx:id="task_btn" layoutX="15.0" layoutY="169.0" mnemonicParsing="false" onAction="#switchform" prefHeight="40.0" prefWidth="170.0" styleClass="nav_btn" stylesheets="@timeDesign.css" text="Kế hoạch" />
                                 <Button fx:id="cancelButton" layoutX="20.0" layoutY="504.0" mnemonicParsing="false" onAction="#ExitButton" styleClass="logout" stylesheets="@timeDesign.css">
                                     <graphic>
                                         <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
                                     </graphic>
                                 </Button>
-                                <Label layoutX="66.0" layoutY="511.0" text="Logout" textFill="WHITE">
+                                <Label layoutX="66.0" layoutY="511.0" text="Thoát chương trình" textFill="WHITE">
                                     <font>
                                         <Font name="Tahoma" size="14.0" />
                                     </font>
@@ -79,17 +76,17 @@
                                             <children>
                                                 <Circle fill="WHITE" layoutX="134.0" layoutY="100.0" radius="90.0" stroke="BLACK" strokeType="INSIDE" />
                                                 <FontAwesomeIcon glyphName="USER" layoutX="77.0" layoutY="151.0" size="12em" />
-                                                <Label layoutX="278.0" layoutY="65.0" text="Username:" textFill="WHITE">
+                                                <Label layoutX="278.0" layoutY="65.0" text="Người dùng:" textFill="WHITE">
                                                     <font>
                                                         <Font name="Tahoma" size="20.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="383.0" layoutY="65.0" text="Admin" textFill="WHITE">
+                                                <Label fx:id="username" layoutX="383.0" layoutY="65.0" prefHeight="25.0" prefWidth="115.0" textFill="WHITE">
                                                     <font>
                                                         <Font name="Tahoma" size="20.0" />
                                                     </font>
                                                 </Label>
-                                                <Label layoutX="278.0" layoutY="108.0" text="Date Registed:" textFill="WHITE">
+                                                <Label layoutX="278.0" layoutY="108.0" text="Ngày tham gia:" textFill="WHITE">
                                                     <font>
                                                         <Font name="Tahoma" size="20.0" />
                                                     </font>
@@ -103,7 +100,7 @@
                                         </AnchorPane>
                                         <AnchorPane layoutX="10.0" layoutY="226.0" prefHeight="310.0" prefWidth="880.0" style="-fx-border-color: linear-gradient(to bottom right, #38adae,#cd295a); -fx-border-radius: 8px;" stylesheets="@timeDesign.css">
                                             <children>
-                                                <Label layoutX="50.0" layoutY="14.0" text="Today" textFill="WHITE">
+                                                <Label layoutX="50.0" layoutY="14.0" text="Hôm nay" textFill="WHITE">
                                                     <font>
                                                         <Font size="22.0" />
                                                     </font>
@@ -111,12 +108,12 @@
                                                 <AnchorPane layoutX="50.0" layoutY="75.0" prefHeight="180.0" prefWidth="240.0" styleClass="card" stylesheets="@timeDesign.css">
                                                     <children>
                                                         <FontAwesomeIcon glyphName="CALENDAR" layoutX="14.0" layoutY="96.0" size="6em" />
-                                                        <Label layoutX="169.0" layoutY="146.0" text="EVENTS" textFill="WHITE">
+                                                        <Label layoutX="169.0" layoutY="146.0" text="SỰ KIỆN" textFill="WHITE">
                                                             <font>
                                                                 <Font name="Tahoma" size="16.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="176.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
+                                                        <Label fx:id="event_total" layoutX="176.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
                                                             <font>
                                                                 <Font size="32.0" />
                                                             </font>
@@ -126,12 +123,12 @@
                                                 <AnchorPane layoutX="320.0" layoutY="75.0" prefHeight="180.0" prefWidth="240.0" styleClass="card" stylesheets="@timeDesign.css">
                                                     <children>
                                                         <FontAwesomeIcon glyphName="TASKS" layoutX="14.0" layoutY="96.0" size="6em" />
-                                                        <Label layoutX="179.0" layoutY="146.0" text="TASKS" textFill="WHITE">
+                                                        <Label layoutX="125.0" layoutY="146.0" text="VIỆC CẦN LÀM" textFill="WHITE">
                                                             <font>
                                                                 <Font name="Tahoma" size="16.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="177.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
+                                                        <Label fx:id="total_task" layoutX="177.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
                                                             <font>
                                                                 <Font size="32.0" />
                                                             </font>
@@ -141,12 +138,12 @@
                                                 <AnchorPane layoutX="593.0" layoutY="75.0" prefHeight="180.0" prefWidth="240.0" styleClass="card" stylesheets="@timeDesign.css">
                                                     <children>
                                                         <FontAwesomeIcon glyphName="CHECK_SQUARE_ALT" layoutX="14.0" layoutY="96.0" size="6em" />
-                                                        <Label layoutX="104.0" layoutY="146.0" text="FINISHED TASKS" textFill="WHITE">
+                                                        <Label layoutX="90.0" layoutY="146.0" text="VIỆC HOÀN THÀNH" textFill="WHITE">
                                                             <font>
                                                                 <Font name="Tahoma" size="16.0" />
                                                             </font>
                                                         </Label>
-                                                        <Label layoutX="176.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
+                                                        <Label fx:id="finished_task" layoutX="176.0" layoutY="40.0" prefHeight="60.0" prefWidth="50.0" text="0" textFill="WHITE">
                                                             <font>
                                                                 <Font size="32.0" />
                                                             </font>
@@ -161,95 +158,104 @@
                                     <children>
                                         <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="530.0" prefWidth="400.0" styleClass="container" stylesheets="@timeDesign.css">
                                             <children>
-                                                <Label layoutX="147.0" layoutY="14.0" text="Add a event" textFill="WHITE">
+                                                <Label layoutX="147.0" layoutY="14.0" text="Thêm sự kiện" textFill="WHITE">
                                                     <font>
                                                         <Font name="Tahoma" size="20.0" />
                                                     </font>
                                                 </Label>
+                                    <AnchorPane layoutX="14.0" layoutY="65.0" prefHeight="432.0" prefWidth="374.0">
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2f3f5" height="430.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="377.0" />
+                                          <TextArea fx:id="event_textarea" layoutX="79.0" layoutY="21.0" prefHeight="100.0" prefWidth="275.0" />
+                                          <Label layoutX="14.0" layoutY="44.0" prefHeight="29.0" prefWidth="60.0" text="Sự kiện" />
+                                          <Label layoutX="7.0" layoutY="174.0" prefHeight="29.0" prefWidth="75.0" text="Ngày bắt đầu" />
+                                          <Label layoutX="7.0" layoutY="236.0" prefHeight="29.0" prefWidth="78.0" text="Ngày kết thúc" />
+                                          <Label layoutX="14.0" layoutY="294.0" prefHeight="29.0" prefWidth="60.0" text="Trạng thái" />
+                                          <DatePicker fx:id="event_date_starr" layoutX="91.0" layoutY="174.0" prefHeight="30.0" prefWidth="234.0" />
+                                          <DatePicker fx:id="event_date_end" layoutX="91.0" layoutY="236.0" prefHeight="30.0" prefWidth="234.0" />
+                                          <ComboBox fx:id="status_combo" layoutX="92.0" layoutY="293.0" prefHeight="31.0" prefWidth="233.0" />
+                                          <Button fx:id="add_btn_event" layoutX="22.0" layoutY="367.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="34.0" prefWidth="92.0" text="Thêm" />
+                                          <Button fx:id="delete_btn_event" layoutX="262.0" layoutY="367.0" mnemonicParsing="false" onAction="#eventDelete" prefHeight="34.0" prefWidth="92.0" text="Xoá" />
+                                          <Button fx:id="update_btn_event" layoutX="143.0" layoutY="367.0" mnemonicParsing="false" onAction="#eventUpdate" prefHeight="34.0" prefWidth="92.0" text="Cập nhật" />
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane layoutX="425.0" layoutY="10.0" prefHeight="530.0" prefWidth="460.0" styleClass="container" stylesheets="@timeDesign.css" />
+                                        <AnchorPane layoutX="425.0" layoutY="10.0" prefHeight="530.0" prefWidth="573.0" styleClass="container" stylesheets="@timeDesign.css">
+                                 <children>
+                                    <TableView fx:id="event_table_view" layoutX="7.0" layoutY="14.0" onMouseClicked="#eventSelectedData" prefHeight="484.0" prefWidth="554.0">
+                                      <columns>
+                                        <TableColumn fx:id="event_Column" prefWidth="213.0" text="Sự kiện" />
+                                        <TableColumn fx:id="status_Column" minWidth="0.0" prefWidth="96.0" text="Ngày bắt đầu" />
+                                          <TableColumn fx:id="date_start_Column" minWidth="0.0" prefWidth="121.0" text="Ngày kết thúc" />
+                                          <TableColumn fx:id="date_End_Column" minWidth="0.0" prefWidth="123.0" text="Trạng thái" />
+                                      </columns>
+                                    </TableView>
+                                 </children></AnchorPane>
                                     </children></AnchorPane>
-                                <AnchorPane fx:id="task_form" layoutX="98.0" layoutY="103.0" prefHeight="550.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane fx:id="task_form" layoutX="98.0" layoutY="103.0" prefHeight="550.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
-                                        <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="530.0" prefWidth="555.0" styleClass="container">
+                                        <AnchorPane layoutX="454.0" layoutY="5.0" prefHeight="522.0" prefWidth="542.0" styleClass="container">
                                             <stylesheets>
                                                 <URL value="@design.css" />
                                                 <URL value="@timeDesign.css" />
                                             </stylesheets>
-                                            <children>
-                                                <Button layoutX="501.0" layoutY="480.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" styleClass="cr_note" stylesheets="@timeDesign.css" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="Tahoma" size="18.0" />
-                                                    </font>
-                                                    <graphic>
-                                                        <FontAwesomeIcon fill="WHITE" glyphName="ARROW_UP" size="1.5em" />
-                                                    </graphic>
-                                                </Button>
-                                                <TextField layoutX="14.0" layoutY="483.0" prefHeight="30.0" prefWidth="380.0" promptText="Add a task" />
-                                                <DatePicker layoutX="400.0" layoutY="483.0" prefHeight="30.0" prefWidth="95.0" promptText="Date" stylesheets="@timeDesign.css" />
-                                                <Pane layoutX="13.0" layoutY="14.0" prefHeight="280.0" prefWidth="530.0">
-                                                    <children>
-                                                        <Label layoutY="1.0" text="Today's to do list" textFill="WHITE">
-                                                            <font>
-                                                                <Font name="System Bold" size="17.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <ScrollPane layoutX="14.0" layoutY="40.0" prefHeight="230.0" prefWidth="505.0">
-                                                            <content>
-                                                                <VBox prefHeight="224.0" prefWidth="491.0">
-                                                                    <children>
-                                                                        <HBox prefHeight="50.0" prefWidth="491.0" styleClass="task" stylesheets="@timeDesign.css" />
-                                                                    </children>
-                                                                    <opaqueInsets>
-                                                                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                                                                    </opaqueInsets></VBox>
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </children>
-                                                </Pane>
-                                                <Pane layoutX="14.0" layoutY="294.0" prefHeight="175.0" prefWidth="530.0">
-                                                    <children>
-                                                        <Label layoutY="1.0" text="Upcoming" textFill="WHITE">
-                                                            <font>
-                                                                <Font name="System Bold" size="17.0" />
-                                                            </font>
-                                                        </Label>
-                                                        <ScrollPane layoutX="14.0" layoutY="34.0" prefHeight="130.0" prefWidth="500.0">
-                                                            <content>
-                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="125.0" prefWidth="491.0" />
-                                                            </content>
-                                                        </ScrollPane>
-                                                    </children>
-                                                </Pane>
-                                            </children>
+                                 <children>
+                                    <TableView fx:id="table_view_task" layoutX="26.0" layoutY="42.0" onMouseClicked="#TaskSelectedData" prefHeight="454.0" prefWidth="491.0">
+                                       <columns>
+                                          <TableColumn fx:id="datetask" prefWidth="139.0" text="Ngày" />
+                                          <TableColumn fx:id="todolisttask" prefWidth="216.0" text="Việc cần làm" />
+                                          <TableColumn fx:id="status_coll" prefWidth="159.0" text="Trạng thái" />
+                                       </columns>
+                                    </TableView>
+                                    <Label layoutX="216.0" layoutY="7.0" prefHeight="29.0" prefWidth="226.0" text="Danh sách công việc" textFill="#fcf9f9">
+                                       <font>
+                                          <Font name="Times New Roman Bold" size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
                                         </AnchorPane>
-                                        <AnchorPane layoutX="581.0" layoutY="10.0" prefHeight="215.0" prefWidth="305.0" styleClass="container" stylesheets="@timeDesign.css">
-                                            <children>
-                                                <Label layoutX="14.0" layoutY="14.0" text="Quote of the day" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="System Bold" size="17.0" />
-                                                    </font>
-                                                </Label>
-                                                <Label fx:id="quote" layoutX="20.0" layoutY="50.0" prefHeight="140.0" prefWidth="265.0" text="label" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="System Italic" size="15.0" />
-                                                    </font>
-                                                </Label>
-                                            </children>
-                                        </AnchorPane>
-                                        <AnchorPane layoutX="581.0" layoutY="240.0" prefHeight="300.0" prefWidth="305.0" styleClass="container" stylesheets="@timeDesign.css">
-                                            <children>
-                                                <Label layoutX="14.0" layoutY="14.0" text="Task Progress" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="System Bold" size="17.0" />
-                                                    </font>
-                                                </Label>
-                                                <PieChart fx:id="pieChart" layoutX="13.0" layoutY="48.0" prefHeight="245.0" prefWidth="280.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="48.0" />
-                                            </children>
-                                        </AnchorPane>
+                              <AnchorPane layoutX="14.0" layoutY="7.0" prefHeight="297.0" prefWidth="424.0" styleClass="container">
+                                 <children>
+                                    <Button fx:id="delete_task" layoutX="298.0" layoutY="208.0" mnemonicParsing="false" onAction="#taskDelete" prefHeight="34.0" prefWidth="92.0" text="Xoá" />
+                                    <Button fx:id="add_task" layoutX="27.0" layoutY="208.0" mnemonicParsing="false" onAction="#addTask" prefHeight="34.0" prefWidth="92.0" text="Thêm" />
+                                    <Button fx:id="update_task" layoutX="166.0" layoutY="208.0" mnemonicParsing="false" onAction="#taskUpdate" prefHeight="34.0" prefWidth="92.0" text="Cập nhật" />
+                                 </children></AnchorPane>
+                              <Label layoutX="17.0" layoutY="36.0" prefHeight="29.0" prefWidth="96.0" text="Việc cần làm:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="date_task" layoutX="115.0" layoutY="104.0" prefHeight="30.0" prefWidth="200.0" />
+                              <Label layoutX="30.0" layoutY="104.0" prefHeight="29.0" prefWidth="67.0" text="Ngày:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="26.0" layoutY="158.0" prefHeight="29.0" prefWidth="71.0" text="Trạng thái:" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="status_task" layoutX="115.0" layoutY="157.0" onAction="#comboEventTask" prefHeight="31.0" prefWidth="201.0" />
+                              <TextArea fx:id="task_area" layoutX="115.0" layoutY="24.0" prefHeight="59.0" prefWidth="275.0" />
+                              <AnchorPane layoutX="16.0" layoutY="312.0" prefHeight="215.0" prefWidth="421.0" styleClass="container" stylesheets="@../../../../../../../ĐOANCODE/TimeManagement/src/main/resources/com/example/timemanagement/timeDesign.css">
+                                 <children>
+                                    <TableView fx:id="table_today" layoutX="9.0" layoutY="45.0" prefHeight="162.0" prefWidth="401.0">
+                                       <columns>
+                                          <TableColumn fx:id="list_col_table" minWidth="0.0" prefWidth="253.0" text="Việc cần làm" />
+                                          <TableColumn fx:id="status_table" prefWidth="168.0" text="Trạng thái" />
+                                       </columns>
+                                    </TableView>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Việc hôm nay" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
                                     </children></AnchorPane>
-                                <AnchorPane fx:id="note_form" prefHeight="550.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <AnchorPane fx:id="note_form" prefHeight="550.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <children>
                                         <Button layoutX="46.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="cr_note" stylesheets="@timeDesign.css" text="Create a note" textFill="WHITE">
                                             <font>
@@ -263,37 +269,12 @@
                                                 <FontAwesomeIcon glyphName="SEARCH" layoutX="564.0" layoutY="28.0" size="2em" text="" />
                                             </children>
                                         </AnchorPane>
-                                        <AnchorPane layoutX="600.0" layoutY="87.0" prefHeight="300.0" prefWidth="250.0" style="-fx-border-color: linear-gradient(to bottom right, #38adae,#cd295a); -fx-border-radius: 8px;">
-                                            <children>
-                                                <TextField layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="230.0" />
-                                                <TextArea layoutX="12.0" layoutY="50.0" prefHeight="200.0" prefWidth="230.0" />
-                                                <Label alignment="CENTER_RIGHT" layoutX="156.0" layoutY="269.0" prefHeight="17.0" prefWidth="85.0" text="01/05/2024" textFill="#000000ad" />
-                                                <Button layoutX="14.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                                <Button layoutX="51.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                            </children>
-                                        </AnchorPane>
-                                        <AnchorPane layoutX="325.0" layoutY="87.0" prefHeight="300.0" prefWidth="250.0" style="-fx-border-color: linear-gradient(to bottom right, #38adae,#cd295a); -fx-border-radius: 8px;">
-                                            <children>
-                                                <TextField layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="230.0" />
-                                                <TextArea layoutX="12.0" layoutY="50.0" prefHeight="200.0" prefWidth="230.0" />
-                                                <Label alignment="CENTER_RIGHT" layoutX="156.0" layoutY="269.0" prefHeight="17.0" prefWidth="85.0" text="01/05/2024" textFill="#000000ad" />
-                                                <Button layoutX="14.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                                <Button layoutX="51.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                            </children>
-                                        </AnchorPane>
-                                        <AnchorPane layoutX="46.0" layoutY="87.0" prefHeight="300.0" prefWidth="250.0" style="-fx-border-color: linear-gradient(to bottom right, #38adae,#cd295a); -fx-border-radius: 8px;">
-                                            <children>
-                                                <TextField layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="225.0" promptText="Title">
-                                                    <font>
-                                                        <Font name="System Bold" size="12.0" />
-                                                    </font>
-                                                </TextField>
-                                                <TextArea layoutX="12.0" layoutY="50.0" prefHeight="200.0" prefWidth="225.0" promptText="Content" />
-                                                <Label alignment="CENTER_RIGHT" layoutX="156.0" layoutY="269.0" prefHeight="17.0" prefWidth="85.0" text="01/05/2024" textFill="#000000ad" />
-                                                <Button layoutX="14.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                                <Button layoutX="51.0" layoutY="265.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="Button" />
-                                            </children>
-                                        </AnchorPane>
+                              <Button fx:id="add_note_btn" layoutX="786.0" layoutY="299.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="83.0" text="ADD" />
+                              <TextField fx:id="add_note" layoutX="715.0" layoutY="117.0" prefHeight="161.0" prefWidth="225.0" text="ADD NOTE IN HERE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </TextField>
                                     </children>
                                 </AnchorPane>
                             </children>
